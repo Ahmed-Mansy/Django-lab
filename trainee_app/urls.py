@@ -1,0 +1,18 @@
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import TraineeListCreateAPIView, TraineeUpdateDeleteAPIView, track_update, TraineeViewSet
+
+router = DefaultRouter()
+# from .views import TraineeListView, TraineeListCreateAPIView, TraineeUpdateDeleteAPIView, track_update, TraineeViewSet
+from .views import TraineeListView, TraineeDeleteView, AddTraineeView, UpdateTraineeView
+
+router.register(r'trainees', TraineeViewSet)
+
+
+urlpatterns = [
+    path('trainees/', TraineeListCreateAPIView.as_view(), name='trainee-list-create'),
+    path('trainees/<int:pk>/', TraineeUpdateDeleteAPIView.as_view(), name='trainee-update-delete'),
+    path('track_update/<int:pk>/', track_update, name='track-update'),
+    path('', include(router.urls)),
+]
+
